@@ -27,11 +27,10 @@ public class WordManager {
         while(true) {
             int menu = selectMenu();
             if(menu == 0) {
-                //break;
-
+                break;
             }
             if(menu == 1) {
-
+                WordCRUD.listAll();
             }
             if(menu == 4) {
                 WordCRUD.addWord();
