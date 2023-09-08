@@ -27,7 +27,8 @@ public class WordManager {
         while(true) {
             int menu = selectMenu();
             if(menu == 0) {
-                break;
+                //break;
+
             }
             if(menu == 1) {
 
