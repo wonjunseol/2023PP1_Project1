@@ -30,11 +30,17 @@ public class WordManager {
                 WordCRUD.end();
                 break;
             }
-            if(menu == 1) {
+            else if(menu == 1) {
                 WordCRUD.listAll();
             }
-            if(menu == 4) {
-                WordCRUD.addWord();
+            else if(menu == 4) {
+                WordCRUD.addItem();
+            }
+            else if(menu == 5) {
+                WordCRUD.updateItem();
+            }
+            else if(menu == 6) {
+                WordCRUD.deleteItem();
             }
         }
     }
