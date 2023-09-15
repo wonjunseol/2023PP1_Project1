@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58689aee-a9bb-4106-b22c-4c674f7efd14" name="Changes" comment="파일에 내용 추가">
+    <list default="true" id="58689aee-a9bb-4106-b22c-4c674f7efd14" name="Changes" comment="테스트 하기 위한 test.txt 구현">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ICRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ICRUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Word.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/WordCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/WordCRUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/WordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/WordManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +71,8 @@
       <workItem from="1694698859834" duration="1095000" />
       <workItem from="1694702661939" duration="3184000" />
       <workItem from="1694713015688" duration="1733000" />
+      <workItem from="1694740249458" duration="1960000" />
+      <workItem from="1694742274094" duration="523000" />
     </task>
     <task id="LOCAL-00001" summary="단어 추가 기능">
       <option name="closed" value="true" />
@@ -170,7 +170,23 @@
       <option name="project" value="LOCAL" />
       <updated>1694740196927</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="전체적인 CRUD 기능 수정 및 마무리">
+      <option name="closed" value="true" />
+      <created>1694740346629</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1694740346629</updated>
+    </task>
+    <task id="LOCAL-00014" summary="테스트 하기 위한 test.txt 구현">
+      <option name="closed" value="true" />
+      <created>1694740831858</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1694740831858</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +199,8 @@
     <MESSAGE value="스크린 샷 추가" />
     <MESSAGE value="단어 수정, 삭제, 파일 split 구현" />
     <MESSAGE value="파일에 내용 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="파일에 내용 추가" />
+    <MESSAGE value="전체적인 CRUD 기능 수정 및 마무리" />
+    <MESSAGE value="테스트 하기 위한 test.txt 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="테스트 하기 위한 test.txt 구현" />
   </component>
 </project>
