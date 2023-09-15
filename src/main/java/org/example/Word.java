@@ -48,7 +48,7 @@ public class Word {
     }
 
 
-    public String toString() {
+    public String toString() { //화면에 출력하기 위해 만든 method
 
         String slevel = "";
         for(int i=0; i<level; i++) {
@@ -57,5 +57,7 @@ public class Word {
         String str = String.format("%-3s", slevel) + String.format("%15s", word) + " " + meaning;
         return str;
     }
-
+    public String toFileString() {//파일에 데이터를 출력할 때 어떤 format으로 출력할지 정하기 위해 만든 method
+        return this.level + "|" +this.word + "|" + this.meaning;
+    }
 }

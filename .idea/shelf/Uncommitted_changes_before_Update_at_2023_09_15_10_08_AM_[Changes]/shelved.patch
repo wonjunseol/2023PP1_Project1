@@ -1,0 +1,269 @@
+Index: Dictionary.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dictionary.txt b/Dictionary.txt
+--- a/Dictionary.txt	(revision c0f6225a4c1f238162a126342ad9a86caab44435)
++++ b/Dictionary.txt	(date 1694713619017)
+@@ -1,0 +1,4 @@
++1|apple|사과
++2|kiwi|키위, 잼
++3| hello|안녕
++1| good|좋은
+Index: src/main/java/org/example/ICRUD.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\npublic interface ICRUD {\n\n    public Object add();\n    public int update(Object obj);\n    public int delete(Object obj);\n    public void selectOne(int id);\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/ICRUD.java b/src/main/java/org/example/ICRUD.java
+--- a/src/main/java/org/example/ICRUD.java	(revision c0f6225a4c1f238162a126342ad9a86caab44435)
++++ b/src/main/java/org/example/ICRUD.java	(date 1694713911630)
+@@ -1,9 +1,9 @@
+ package org.example;
+ 
+-public interface ICRUD {
++public interface ICRUD { //인터페이스를 통해서 자주 사용하는 함수들의 템플릿을 만들고 오버라이드해놨는데 실제로 사용하진 않음.
+ 
+     public Object add();
+-    public int update(Object obj);
++    public int update(Object obj); //얘네는 사용안함. 사용할줄 알고 만들었지만 안함. 초보자라 그럼.
+     public int delete(Object obj);
+     public void selectOne(int id);
+ }
+Index: src/main/java/org/example/Word.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\npublic class Word {\n    private int id;\n    private int level;\n    private String word;\n    private String meaning;\n\n    Word() {}\n\n    Word(int id, int level, String word, String meaning) {\n        this.id = id;\n        this.level = level;\n        this.word = word;\n        this.meaning = meaning;\n    }\n\n    public int getId() {\n        return id;\n    }\n\n    public void setId(int id) {\n        this.id = id;\n    }\n\n    public int getLevel() {\n        return level;\n    }\n\n    public void setLevel(int level) {\n        this.level = level;\n    }\n\n    public String getWord() {\n        return word;\n    }\n\n    public void setWord(String word) {\n        this.word = word;\n    }\n\n    public String getMeaning() {\n        return meaning;\n    }\n\n    public void setMeaning(String meaning) {\n        this.meaning = meaning;\n    }\n\n\n    public String toString() {\n\n        String slevel = \"\";\n        for(int i=0; i<level; i++) {\n            slevel += \"*\";\n        }\n        String str = String.format(\"%-3s\", slevel) + String.format(\"%15s\", word) + \" \" + meaning;\n        return str;\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Word.java b/src/main/java/org/example/Word.java
+--- a/src/main/java/org/example/Word.java	(revision c0f6225a4c1f238162a126342ad9a86caab44435)
++++ b/src/main/java/org/example/Word.java	(date 1694713161224)
+@@ -48,7 +48,7 @@
+     }
+ 
+ 
+-    public String toString() {
++    public String toString() { //화면에 출력하기 위해 만든 method
+ 
+         String slevel = "";
+         for(int i=0; i<level; i++) {
+@@ -57,5 +57,7 @@
+         String str = String.format("%-3s", slevel) + String.format("%15s", word) + " " + meaning;
+         return str;
+     }
+-
++    public String toFileString() {//파일에 데이터를 출력할 때 어떤 format으로 출력할지 정하기 위해 만든 method
++        return this.level + "|" +this.word + "|" + this.meaning;
++    }
+ }
+Index: src/main/java/org/example/WordCRUD.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\nimport  java.io.BufferedReader;\nimport java.io.FileNotFoundException;\nimport java.io.FileReader;\nimport java.io.IOException;\nimport java.util.ArrayList;\nimport java.util.Scanner;\n\npublic class WordCRUD implements ICRUD{\n    ArrayList<Word> list;\n    Scanner s;\n    final String fname = \"Dictionary.txt\";\n\n    WordCRUD(Scanner s) {\n        list = new ArrayList<>();\n        this.s = s;\n    }\n    @Override\n    public Object add() {\n        System.out.print(\"=> 난이(1,2,3) & 새 단어 입력 : \");\n        int level = s.nextInt();\n        String word = s.nextLine();\n        System.out.print(\"뜻 입력 : \");\n        String meaning = s.nextLine();\n\n        return new Word(0, level, word, meaning);\n    }\n\n    public void addItem() {\n        Word one = (Word)add();\n        list.add(one);\n        System.out.println(\"새 단어가 단어장에 추가되었습니다. \");\n\n    }\n\n    @Override\n    public int update(Object obj) {\n        return 0;\n    }\n\n    @Override\n    public int delete(Object obj) {\n        return 0;\n    }\n\n    @Override\n    public void selectOne(int id) {\n\n    }\n\n    public void listAll() {\n        System.out.println(\"---------------------------\");\n        for(int i=0; i<list.size(); i++) {\n            System.out.print((i+1) + \" \");\n            System.out.println(list.get(i).toString());\n        }\n        System.out.println(\"---------------------------\");\n    }\n    public void end() {\n        System.out.println(\"프로그램 종료!\");\n    }\n\n    public ArrayList<Integer> listAll(String keyword) {\n        ArrayList<Integer> idlist = new ArrayList<>();\n        int j=0;\n        System.out.println(\"---------------------------\");\n        for(int i=0; i<list.size(); i++) {\n            String word = list.get(i).getWord();\n            if (!word.contains(keyword)) {\n                continue;\n            }\n            System.out.print((j + 1) + \" \");\n            System.out.println(list.get(i).toString());\n            idlist.add(i);\n            j++;\n        }\n        System.out.println(\"---------------------------\");\n        return idlist;\n    }\n\n    public void updateItem() {\n        System.out.println(\"=> 수정할 단어 검색 : \");\n        String keyword = s.next();\n        ArrayList<Integer> idlist = this.listAll(keyword);\n        System.out.println(\"=> 수정할 번호 선택 : \");\n        int id = s.nextInt();\n        s.nextLine();\n        System.out.println(\"=> 뜻 입력 : \");\n        String meaning = s.nextLine();\n        Word word = list.get(idlist.get(id-1));\n        word.setMeaning(meaning);\n        System.out.println(\"단어가 수정되었습니다. \");\n    }\n\n\n    public void deleteItem() {\n        System.out.println(\"=> 삭제할 단어 검색 : \");\n        String keyword = s.next();\n        ArrayList<Integer> idlist = this.listAll(keyword);\n        System.out.println(\"=> 삭제할 번호 선택 : \");\n        int id = s.nextInt();\n        s.nextLine();\n        System.out.println(\"=> 정말로 삭제하시겠습니까?(Y/N) : \");\n        String answer = s.next();\n        if (answer.equalsIgnoreCase(\"y\")) {\n            list.remove((int)idlist.get(id - 1));\n            System.out.println(\"단어가 삭제되었습니다. \");\n        } else {\n            System.out.println(\"취소되었습니다. \");\n        }\n    }\n\n    public void loadFile() {\n        try {\n            BufferedReader br = new BufferedReader(new FileReader(fname));\n            String line;\n            line = br.readLine(); // 한줄씩 불러옴\n            String data[] = line.split(\"\\\\|\"); // |를 가지고 split 앞에 \\\\를 넣어야 |라는 문자로 쪼갠다는 걸 인식함.\n            br.close();\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/WordCRUD.java b/src/main/java/org/example/WordCRUD.java
+--- a/src/main/java/org/example/WordCRUD.java	(revision c0f6225a4c1f238162a126342ad9a86caab44435)
++++ b/src/main/java/org/example/WordCRUD.java	(date 1694713779565)
+@@ -1,8 +1,5 @@
+ package org.example;
+-import  java.io.BufferedReader;
+-import java.io.FileNotFoundException;
+-import java.io.FileReader;
+-import java.io.IOException;
++import java.io.*;
+ import java.util.ArrayList;
+ import java.util.Scanner;
+ 
+@@ -78,6 +75,21 @@
+         return idlist;
+     }
+ 
++    public void listAll(int level) {
++        int j=0;
++        System.out.println("---------------------------");
++        for(int i=0; i<list.size(); i++) {
++            int ilevel = list.get(i).getLevel();
++            if (ilevel != level) {
++                continue;
++            }
++            System.out.print((j + 1) + " ");
++            System.out.println(list.get(i).toString());
++            j++;
++        }
++        System.out.println("---------------------------");
++    }
++
+     public void updateItem() {
+         System.out.println("=> 수정할 단어 검색 : ");
+         String keyword = s.next();
+@@ -114,13 +126,50 @@
+         try {
+             BufferedReader br = new BufferedReader(new FileReader(fname));
+             String line;
+-            line = br.readLine(); // 한줄씩 불러옴
+-            String data[] = line.split("\\|"); // |를 가지고 split 앞에 \\를 넣어야 |라는 문자로 쪼갠다는 걸 인식함.
++            int count = 0;
++            while(true) {
++                line = br.readLine(); // 한줄씩 불러옴
++                if(line == null) {
++                    break;
++                }
++                String data[] = line.split("\\|"); // |를 가지고 split 앞에 \\를 넣어야 |라는 문자로 쪼갠다는 걸 인식함.
++                int level = Integer.parseInt(data[0]); //data 0번째가 level이다. 근데 string이니 int로 캐스팅해줌.
++                String word = data[1];
++                String meaning = data[2];
++                list.add(new Word(0, level, word, meaning));
++                count ++;
++            }
+             br.close();
++            System.out.println("==> " + count + "개 로딩 완료!!!");
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
++
++    }
++
++    public void saveFile() {
++        //printWriter => 문장 단위로 파일에 저장
++        try {
++            PrintWriter pr = new PrintWriter(new PrintWriter(fname));
++            for(Word one : list) {
++                pr.write(one.toFileString() + "\n");
++            }
++            System.out.println("==> 데이터 저장 완료!!!");
++            pr.close();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
++    }
+ 
++    public void searchLevel() {
++        System.out.println("=> 원하는 레벨은? (1~3) : ");
++        int level = s.nextInt();
++        listAll(level);
+     }
+ 
++    public void searchWord() {
++        System.out.println("=> 원하는 단어는? : ");
++        String keyword = s.next(); //공백을 허용하지 않는 문자열을 입력받는 방법
++        listAll(keyword);
++    }
+ }
+Index: src/main/java/org/example/WordManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\nimport java.util.Scanner;\n\npublic class WordManager {\n    Scanner s = new Scanner(System.in);\n    WordCRUD WordCRUD;\n    WordManager() {\n        WordCRUD = new WordCRUD(s);\n    }\n\n    public int selectMenu() {\n        System.out.println(\"*** 영단어 마스터 ***\\n\"\n                + \"*****************\\n\"\n                + \"1. 모든 단어 보기\\n\"\n                + \"2. 수준별 단어 보기\\n\"\n                + \"3. 단어 검색\\n\"\n                + \"4. 단어 추가\\n\"\n                + \"5. 단어 수정\\n\"\n                + \"6. 단어 삭제\\n\"\n                + \"7. 파일 저장\\n\"\n                + \"0. 나가기\\n\"\n                + \"*****************\\n\"\n                + \"=> 원하는 메뉴는? \");\n        return s.nextInt();\n    }\n    public void start() {\n        while(true) {\n            int menu = selectMenu();\n            if(menu == 0) {\n                WordCRUD.end();\n                break;\n            }\n            else if(menu == 1) {\n                WordCRUD.listAll();\n            }\n            else if(menu == 4) {\n                WordCRUD.addItem();\n            }\n            else if(menu == 5) {\n                WordCRUD.updateItem();\n            }\n            else if(menu == 6) {\n                WordCRUD.deleteItem();\n            }\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/WordManager.java b/src/main/java/org/example/WordManager.java
+--- a/src/main/java/org/example/WordManager.java	(revision c0f6225a4c1f238162a126342ad9a86caab44435)
++++ b/src/main/java/org/example/WordManager.java	(date 1694713682387)
+@@ -24,6 +24,7 @@
+         return s.nextInt();
+     }
+     public void start() {
++        WordCRUD.loadFile();
+         while(true) {
+             int menu = selectMenu();
+             if(menu == 0) {
+@@ -33,6 +34,12 @@
+             else if(menu == 1) {
+                 WordCRUD.listAll();
+             }
++            else if(menu == 2) {
++                WordCRUD.searchLevel();
++            }
++            else if(menu == 3) {
++                WordCRUD.searchWord();
++            }
+             else if(menu == 4) {
+                 WordCRUD.addItem();
+             }
+@@ -42,6 +49,9 @@
+             else if(menu == 6) {
+                 WordCRUD.deleteItem();
+             }
++            else if(menu == 7) {
++                WordCRUD.saveFile();
++            }
+         }
+     }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"58689aee-a9bb-4106-b22c-4c674f7efd14\" name=\"Changes\" comment=\"스크린 샷 추가\">\n      <change afterPath=\"$PROJECT_DIR$/Dictionary.txt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/WordCRUD.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/WordCRUD.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/WordManager.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/WordManager.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 7\n}</component>\n  <component name=\"ProjectId\" id=\"2UxRbBwZBPTbao2hN9xMp9YKQvD\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/Users/seol-wonjun/IdeaProjects/CRUD-Project/src/main/java/org/example&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/seol-wonjun/IdeaProjects/CRUD-Project/src/main/java/org/example/Main.java&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/src/main/java/org/example\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/screenshot\" />\n    </key>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"58689aee-a9bb-4106-b22c-4c674f7efd14\" name=\"Changes\" comment=\"\" />\n      <created>1693879314213</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1693879314213</updated>\n      <workItem from=\"1693879315256\" duration=\"6534000\" />\n      <workItem from=\"1694138752086\" duration=\"2285000\" />\n      <workItem from=\"1694337108260\" duration=\"5155000\" />\n      <workItem from=\"1694698859834\" duration=\"1095000\" />\n      <workItem from=\"1694702661939\" duration=\"1879000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"단어 추가 기능\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694137006637</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694137006637</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"단어 추가 기능\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694138248242</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694138248242</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"단어 추가 기능\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694138486144</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694138486144</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"listAll 함수 추가\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694138640510</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694138640510</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"listAll 함수 추가\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694138789824</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694138789824</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"listAll 함수 추가\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694138815379</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694138815379</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"나가기 기능 추가\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694138912762</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694138912762</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"스크린 샷 추가\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694168705314</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694168705315</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"9\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"단어 추가 기능\" />\n    <MESSAGE value=\"listAll 함수 추가\" />\n    <MESSAGE value=\"나가기 기능 추가\" />\n    <MESSAGE value=\"스크린 샷 추가\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"스크린 샷 추가\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c0f6225a4c1f238162a126342ad9a86caab44435)
++++ b/.idea/workspace.xml	(date 1694740117448)
+@@ -4,9 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="58689aee-a9bb-4106-b22c-4c674f7efd14" name="Changes" comment="스크린 샷 추가">
+-      <change afterPath="$PROJECT_DIR$/Dictionary.txt" afterDir="false" />
++    <list default="true" id="58689aee-a9bb-4106-b22c-4c674f7efd14" name="Changes" comment="단어 수정, 삭제, 파일 split 구현">
++      <change afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Dictionary.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary.txt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ICRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ICRUD.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Word.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/WordCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/WordCRUD.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/WordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/WordManager.java" afterDir="false" />
+     </list>
+@@ -67,7 +70,8 @@
+       <workItem from="1694138752086" duration="2285000" />
+       <workItem from="1694337108260" duration="5155000" />
+       <workItem from="1694698859834" duration="1095000" />
+-      <workItem from="1694702661939" duration="1879000" />
++      <workItem from="1694702661939" duration="3184000" />
++      <workItem from="1694713015688" duration="1607000" />
+     </task>
+     <task id="LOCAL-00001" summary="단어 추가 기능">
+       <option name="closed" value="true" />
+@@ -133,7 +137,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1694168705315</updated>
+     </task>
+-    <option name="localTasksCounter" value="9" />
++    <task id="LOCAL-00009" summary="단어 수정, 삭제, 파일 split 구현">
++      <option name="closed" value="true" />
++      <created>1694711741089</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1694711741091</updated>
++    </task>
++    <task id="LOCAL-00010" summary="단어 수정, 삭제, 파일 split 구현">
++      <option name="closed" value="true" />
++      <created>1694740113098</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1694740113098</updated>
++    </task>
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -144,6 +164,7 @@
+     <MESSAGE value="listAll 함수 추가" />
+     <MESSAGE value="나가기 기능 추가" />
+     <MESSAGE value="스크린 샷 추가" />
+-    <option name="LAST_COMMIT_MESSAGE" value="스크린 샷 추가" />
++    <MESSAGE value="단어 수정, 삭제, 파일 split 구현" />
++    <option name="LAST_COMMIT_MESSAGE" value="단어 수정, 삭제, 파일 split 구현" />
+   </component>
+ </project>
+\ No newline at end of file
