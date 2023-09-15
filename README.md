@@ -29,6 +29,17 @@
 ## 파일 저장 기능 구현 스크린샷 - txt파일
 <img width="206" alt="save file - txt file list" src="https://github.com/wonjunseol/2023PP1_Project1/assets/130718201/1f6fed63-9f56-4d6e-b51b-d67ae2c8743a">
 
+## 파일 저장 기능 구현 스크린샷
+<img width="240" alt="save file" src="https://github.com/wonjunseol/2023PP1_Project1/assets/130718201/792e3acf-d5f5-4008-ae28-a921d82a4ead">
+
+## 수준별 단어 찾기 기능 구현 스크린샷
+<img width="250" alt="search level" src="https://github.com/wonjunseol/2023PP1_Project1/assets/130718201/b2a31ffa-88c2-4728-997a-2999186e7ba2">
+
+## 단어 검색 기능 구현 스크린샷
+<img width="239" alt="search word" src="https://github.com/wonjunseol/2023PP1_Project1/assets/130718201/e4fb4737-d129-482a-ad58-d02333a67fab">
+
+
+
 
 
 
