@@ -1,0 +1,4 @@
+1|apple|사과
+2|kiwi|키위, 잼
+3| hello|안녕
+1| good|좋은
